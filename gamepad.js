@@ -1,10 +1,10 @@
-// const cursorElementId = "SUPER_AMAZING_CURSOR_CROSSHAIR_THING"
-
 let prevButtons = []
 let targetX = 0
 let targetY = 0
 
 let movementSpeed = 1
+
+let selectedInput = undefined
 
 // listen for gamepad connected
 window.addEventListener("gamepadconnected", function (e) {
@@ -57,6 +57,9 @@ function buttonPressed(buttonId) {
         case 0:
             clickElement()
             break
+        case 2:
+            recognizeSpeech()
+            break
         case 6:
             decreaseSpeed()
             break
@@ -64,6 +67,23 @@ function buttonPressed(buttonId) {
             increaseSpeed()
             break
     }
+}
+
+function recognizeSpeech() {
+    const recognition = new window.webkitSpeechRecognition()
+    recognition.onresult = (event) => {
+        const speechToText = event.results[0][0].transcript;
+        insertText(speechToText)
+    }
+    recognition.start()
+}
+
+function insertText(text) {
+    if (!selectedInput) {
+        return
+    }
+
+    selectedInput.value = text
 }
 
 function decreaseSpeed() {
@@ -119,15 +139,21 @@ function clickElement() {
     }
 
     if (element.tagName == "INPUT") {
+        selectedInput = element
         element.select()
         element.click()
     } else {
+        selectedInput = undefined
         element.click()
     }
 }
 
 function moveUp() {
     targetY -= movementSpeed
+
+    if (targetY < 0) {
+        targetY = 0
+    }
 }
 
 function moveDown() {
@@ -136,6 +162,10 @@ function moveDown() {
 
 function moveLeft() {
     targetX -= movementSpeed
+    
+    if (targetX < 0) {
+        targetX = 0
+    }
 }
 
 function moveRight() {
