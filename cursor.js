@@ -1,11 +1,11 @@
+let cursorImg = undefined
+
 window.addEventListener("load", () => {
     initCursor()
 })
 
 function initCursor() {
-    document.body.style.zIndex = -1
-
-    let cursorImg = document.createElement("img")
+    cursorImg = document.createElement("img")
     cursorImg.id = "SUPER_AMAZING_CURSOR_CROSSHAIR_THING"
     cursorImg.src = chrome.runtime.getURL("images/crosshair.png")
     let style = cursorImg.style

@@ -1,3 +1,4 @@
+// const cursorElementId = "SUPER_AMAZING_CURSOR_CROSSHAIR_THING"
 
 let prevButtons = []
 let targetX = 0
@@ -93,19 +94,30 @@ function moveCursor (buttonId) {
             break
     }
 
-    let cursor = document.getElementById("SUPER_AMAZING_CURSOR_CROSSHAIR_THING")
-
-    let topSet = targetY - (cursor.height / 2)
-    let leftSet = targetX - (cursor.width / 2)
+    let topSet = targetY - (cursorImg.height / 2)
+    let leftSet = targetX - (cursorImg.width / 2)
     
-    cursor.style.top = topSet + "px"
-    cursor.style.left = leftSet + "px"
+    cursorImg.style.top = topSet + "px"
+    cursorImg.style.left = leftSet + "px"
 }
 
 function clickElement() {
-    let element = document.elementFromPoint(targetX, targetY)
+    let elements = document.elementsFromPoint(targetX, targetY)
+    console.log(elements);
+    console.log(elements[1]);
+    
+    let element = undefined
+    
+    for (let e in elements) {
+        console.log(e);
+        
+        if (elements[e] != cursorImg) {
+            element = elements[e]
+            break
+        }
+    }
 
-    console.log(element);
+    console.log("element selected: " + element);
     
     
     if (!element) {
