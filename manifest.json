@@ -1,0 +1,16 @@
+{
+    "manifest_version": 2,
+    "version": "1.0",
+    "name": "Gamepad Navigator",
+
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["cursor.js", "gamepad.js"]
+        }
+    ],
+    
+    "web_accessible_resources": [
+        "images/*.png"
+    ]
+}
