@@ -103,28 +103,27 @@ function moveCursor (buttonId) {
 
 function clickElement() {
     let elements = document.elementsFromPoint(targetX, targetY)
-    console.log(elements);
-    console.log(elements[1]);
     
     let element = undefined
     
     for (let e in elements) {
-        console.log(e);
         
         if (elements[e] != cursorImg) {
             element = elements[e]
             break
         }
     }
-
-    console.log("element selected: " + element);
-    
     
     if (!element) {
         return
     }
 
-    element.click()
+    if (element.tagName == "INPUT") {
+        element.select()
+        element.click()
+    } else {
+        element.click()
+    }
 }
 
 function moveUp() {
